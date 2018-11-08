@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- onselectstart不允许被选中，除了在input中和textarea上 -->
+    <div onselectstart="return false;">我不能被鼠标选中哦</div>
+    <input type="text" oncopy="return false;" oncut="return false;" value="你能复制我吗？？呵呵哒">
+    <p id="demo"></p>
+    <!-- select菜单联动 -->
+    <div>  
+        <select id="select"></select>
+        <select id="select2"></select>
+    </div>
+
+    <div style="border: 1px solid red;height: 100px;" id="show-time"></div>
+    <script>
+        function myFunction() {
+            // document.getElementById("demo").innerHTML = "你拷贝了文本!"
+            return false;
+        }
+        // 第一题
+        let str = 'abaasdffggghhjjkkgfddsssss3444343';
+        // 1.
+        console.log('1.获取字符串的长度----->', str.length);
+        // 2.取出指定位置的字符
+        console.log('2.取出指定位置的字符----->', str[0])
+        // 3.
+        // if (str.search(/\@/) !== -1) {
+        //     console.log('3.查找指定字符是否在以上字符串中存在----->', '1存在')
+        // } else {
+        //     console.log('3.查找指定字符是否在以上字符串中存在----->', '1不存在')
+        // }
+        if (str.indexOf('g1') !== -1) {
+            console.log('3.查找指定字符是否在以上字符串中存在----->', '存在')
+        } else {
+            console.log('3.查找指定字符是否在以上字符串中存在----->', '不存在')
+        }
+        // 4.
+        let str1 = str.replace('ggg', 'X'); // 只会替换第一个3，想要替换所有的3就得使用循环
+        console.log('4.替换指定的字符----->', str1)
+        // 5.
+        let str2 = str.slice(0, 3)
+        console.log('5.截取指定开始位置到结束位置的字符串----->', str2)
+        // 6.
+        function strNum(str) {
+            let str3 = [],
+                index = 0;
+            for (let i = 0; i < str.length; i++) {
+                const J = str[i]; // 静态变量，用大写
+                if (str3[J]) { // str3['a']
+                    str3[J]++;
+                } else {
+                    str3[J] = 1;
+                }
+
+            }
+            let element = 0,
+                k1;
+            for (let k in str3) {
+                if (str3[k] > element) {
+                    element = str3[k];
+                    k1 = k;
+                }
+
+            }
+            console.log('6.找出以上字符串中出现次数最多的字符----->' + element + '-----和出现的次数----->' + k1)
+        }
+        strNum(str);
+        // 7
+        function forAdd(str) {
+            let str0 = '@';
+            for (let i = 0; i < str.length; i++) {
+                str0 += str[i] + '@';
+            }
+            document.write(str0)
+        }
+        forAdd(str);
+
+
+
+
+        // 二：日期格式化
+        function dateFormat(date, isTrue) {
+            let y = date.getFullYear();
+            let mm = date.getMonth();
+            let d = date.getDay();
+            let da = date.getDate();
+            let h = date.getHours();
+            let m = date.getMinutes();
+            let s = date.getSeconds();
+            let isRun = false;
+            if (isTrue) {
+                if (12 > h && h > 8) {
+                    console.log('早上好～欢迎登陆系统,今天的时间为' + y + '年' + mm + '月' + d + '日' + h + '时' + m + '分' + s + '秒');
+                } else if (14 > h && h > 12) {
+                    console.log('中午好～该休息了,今天的时间为' + y + '年' + mm + '月' + d + '日' + h + '时' + m + '分' + s + '秒');
+                } else if (18 > h && h > 14) {
+                    console.log('下午好～欢迎登陆系统,今天的时间为' + y + '年' + mm + '月' + d + '日' + h + '时' + m + '分' + s + '秒');
+                } else {
+                    console.log('晚上好～XXXXXXXXX,今天的时间为' + y + '年' + mm + '月' + d + '日' + h + '时' + m + '分' + s + '秒');
+                }
+            }
+            // 判断是否为闰年
+            if ( (y % 4 == 0) && (y % 100 != 0) || (y % 400 == 0) ) {
+                isRun = true
+            } else {
+                isRun = false;
+            }
+            let day = ''
+            switch (d) {
+                case 0:
+                    day = '星期天';
+                    break;
+                case 1:
+                    day = '星期一';
+                    break;
+                case 2:
+                    day = '星期二';
+                    break;
+                case 3:
+                    day = '星期三';
+                    break;
+                case 4:
+                    day = '星期四';
+                    break;
+                case 5:
+                    day = '星期五';
+                    break;
+                case 6:
+                    day = '星期六';
+                    break;
+
+                default:
+                    break;
+            }
+
+            return {
+                date: date,
+                y: y,
+                mm: mm,
+                d: d,
+                da: da,
+                h: h,
+                m: m,
+                s: s,
+                day: day,
+                isRun: isRun
+            }
+        }
+        const DAYDATE = dateFormat(new Date(),true);
+        
+        interval = DAYDATE.date.getTime() / 1000;
+
+        // function fn(interval) {
+        //     year = Math.floor(interval / 60 / 60 / 24 / 365) + 1970;
+        //     day = interval / 60 / 60 / 24;
+        // }
+        // fn(interval)
+        // hour = Math.round(interval / 60 / 60 % 24);
+        // minute = Math.round(interval / 60 % 60);
+        // second = Math.round(interval % 60);
+
+            //  (DAYDATE.da - 1 == 0)? (DAYDATE.mm == 1、3、5、7、8、12? DAYDATE.da = 31 : DAYDATE.da = 30):DAYDATE.da - 1
+        console.log('昨天为：' + DAYDATE.y + '年' + DAYDATE.mm + '月' + (DAYDATE.da - 1) + '日' + DAYDATE.h + '时' + DAYDATE.m + '分' + DAYDATE.s + '秒，明天为：' + DAYDATE.y + '年' + DAYDATE.mm +
+                '月' + (DAYDATE.da + 1) + '日' + DAYDATE.h + '时' + DAYDATE.m + '分' + DAYDATE.s + '秒，今天是星期：' + DAYDATE.day);
+
+        //  函数调用，建立两个函数
+        function func1(x) {
+            y = 2 * x + 1
+            return y
+        }
+
+        function func2(arr) {
+            var arr1 = [];
+            for (let i = 0; i < arr.length; i++) {
+                arr1.push(func1(arr[i]))
+
+            }
+            console.log(arr1)
+        }
+        func2([1, 2, 3, 4, 5])
+
+        // 9*9乘法表 
+
+
+        // 下拉菜单，二级联动
+        let select1 = [{
+                name: '请选择省份',
+                value: ''
+            },
+            {
+                name: '江苏',
+                value: 0
+            },
+            {
+                name: '安徽',
+                value: 1
+            },
+        ]
+        let select = [
+    
+                [
+                    { 'name': '请选择城市', 'value': '' },
+                    { 'name': '南京', 'value': 00 },
+                    { 'name': '苏州', 'value': 01 },
+                ],
+            
+                [
+                    { 'name': '请选择城市', 'value': '' },
+                    { 'name': '合肥', 'value': 10 },
+                    { 'name': '滁州', 'value': 10 },
+                ],
+                [
+                    { 'name': '请选择城市', 'value': '' }
+                ]
+                
+            ]
+        let selectOpt = document.getElementById('select');
+        let selectOpt2 = document.getElementById('select2');
+        let option = '';
+        let option2 = '';
+        select1.forEach(v => {     // 相当于  select1.forEach( function ( v ) { console.log( v ) } )
+            option += '<option value=' + v.value + '>' + v.name + '</option>';
+            
+        });
+        option2 = '<option value=' + select[2][0].value + '>' + select[2][0].name + '</option>';
+        selectOpt2.innerHTML = option2;
+        selectOpt.innerHTML = option;
+        selectOpt.onchange = function () {
+            option2 = '';
+            if (selectOpt.value !== '') {
+                select[selectOpt.value].forEach ( v1 => {
+                    option2 += '<option value=' + v1.value + '>' + v1.name + '</option>';
+                })
+                
+            } else {
+                option2 += '<option value=' + select[2][0].value + '>' + select[2][0].name + '</option>';
+            }
+            selectOpt2.innerHTML = option2;
+        }
+    
+    
+        window.onload = function () {
+
+        // 弹出一个提示框，可以根据点击确定或取消，做出相应的动作
+            var con = confirm('你确定继续浏览吗？')
+            if (con) {
+                alert('欢迎光临~');
+            } else {
+                alert('欢迎再来~')
+                window.close();
+            }
+
+        // 使用循环语句和document.write，依次以h1~h6的6级标题格式在页面中输出6行“欢迎 光临”。
+            // for (let i = 1; i < 7; i++) {
+            //     document.write('<h'+i+'>欢迎光临！</h'+i+'>')
+            // }
+            let showT = document.getElementById('show-time');
+            let showtime = '';
+            setInterval( () => {    // function (v) {  console.log(v) }
+                showtime = dateFormat(new Date(),false)
+                showT.innerText = showtime.y + ':' + showtime.m + ':' + showtime.d + ':' + showtime.h + ':' + showtime.mm + ':' + showtime.s
+            },1000)
+
+
+            // onkeypress、禁止右键、禁止选择操作onselectstart、禁止复制oncopy
+            document.onkeypress = (e) => {
+                console.log(e.keyCode,'对应的键盘值为：'+e.key)
+            }
+
+
+        // 对页面中txt的div按以下要求设置鼠标事件:鼠标在上时，背景颜色修改为#CC66CC，
+            showT.onmouseover = () => {
+                let r = parseInt(Math.random()*255);
+                let b = parseInt(Math.random()*255);
+                let g = parseInt(Math.random()*255);
+                console.log(`${'这是一个值'+r}`)
+                showT.style.border = '1px solid #'+ r+g+b +'' // '1px solid #255255255'
+            }
+
+            // 页面上有一个按钮及文本框，在文本框中输入邮箱后，点击按钮能进行验证，要求不能为空，且必须包含@和.
+            // 正则匹配这个公式即可/\@\./
+        }
+    
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>函数封装</title>
+	<style type="text/css">
+		#cas{
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<canvas width="500" height="500" id="cas"></canvas>
+
+</body>
+<script type="text/javascript">
+	var cas = document.getElementsByTagName('canvas')[0];
+	var ctx = cas.getContext("2d");
+	function Line(config){
+		// 必须属性
+		this.ctx = config.ctx;
+		this.x0 = config.x0;
+		this.x1 = config.x1;
+		this.y0 = config.y0;
+		this.y1 = config.y1;
+
+		// 可选择的其他属性
+		this.strokeStyle = config.strokeStyle;
+		this.lineWidth = config.lineWidth;
+	}
+
+	Line.prototype = {
+		constructor: Line,
+		stroke:function(){
+			this.ctx.moveTo(this.x0, this.y0);
+			this.ctx.lineTo(this.x1, this.y1);
+
+			if (this.strokeStyle) {
+				this.ctx.strokeStyle = this.strokeStyle;
+			}
+
+			if (this.lineWidth) {
+				this.ctx.lineWidth = this.lineWidth;
+			}
+			this.ctx.stroke();
+		}
+	};
+
+	var line = new Line({
+		ctx:ctx,
+		x0:100,
+		y0:100,
+		x1:400,
+		y1:100,
+		strokeStyle:'#622DD1',
+		lineWidth:5
+	});
+	line.stroke();
+</script>
+</html>

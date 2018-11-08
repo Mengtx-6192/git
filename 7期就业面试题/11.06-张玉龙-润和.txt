@@ -1,0 +1,5 @@
+问了promise，
+子子组建如何传值，
+amd和cmd和nodejs，
+还问了项目各种插件，
+还问了mvc，

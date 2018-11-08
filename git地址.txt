@@ -1,0 +1,3 @@
+github: 	https://github.com/Mengtx-6192/git.git
+
+git本地：	//MENGTIANXIANG-M/本地git库

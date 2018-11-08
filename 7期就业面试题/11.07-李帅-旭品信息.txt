@@ -1,0 +1,7 @@
+上来先笔试（我比较惨  有人在旁边看着我做）
+Canvas  
+H5新特性   
+C3选择器
+Cookie和 localstorage  的区别 
+Video标签怎么使用
+地图的接口怎么使用

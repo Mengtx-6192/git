@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<style type="text/css">
+		canvas {
+			border: 1px solid red;
+			margin: 100px 200px;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas width="500" height="500"></canvas>
+</body>
+<script type="text/javascript">
+	var cas = document.getElementsByTagName('canvas')[0];
+	// console.log(cas);
+	var ctx = cas.getContext("2d");
+
+	// ctx.rect(100, 20, 30, 50);
+	// ctx.stroke();
+
+	// ctx.strokeRect(100, 100, 30, 50);
+
+	// ctx.fillRect(100, 200, 30, 50);
+
+	ctx.strokeStyle = 'red';
+	ctx.fillStyle = 'red';
+	ctx.rect(100, 20, 30, 50);
+	ctx.stroke();
+
+	ctx.beginPath();
+	ctx.strokeStyle = 'green';
+	ctx.fillStyle = 'green';
+	ctx.strokeRect(100, 100, 30, 50);
+
+	ctx.beginPath();
+	ctx.strokeStyle = 'blue';
+	ctx.fillStyle = 'blue';
+	ctx.fillRect(100, 200, 30, 50);
+</script>
+
+</html>

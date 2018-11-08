@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    #content {
+        border: 1px solid red;
+        height: 190px;
+    }
+    
+    span {
+        margin-left: 63px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div>
+        <div id="content"></div>
+        <div>
+            <span id="pre">&lt;上一页</span>
+            <span id="next">下一页&gt;</span>
+        </div>
+    </div>
+    <script>
+        // 假设是从后台获取的数据
+        let data = [{
+            name: '1',
+            age: 19
+        }, {
+            name: '2',
+            age: 19
+        }, {
+            name: '3',
+            age: 19
+        }, {
+            name: '4',
+            age: 19
+        }, {
+            name: '5',
+            age: 19
+        }, {
+            name: '6',
+            age: 19
+        }, {
+            name: '7',
+            age: 19
+        }, {
+            name: '8',
+            age: 19
+        }, {
+            name: '9',
+            age: 19
+        }, {
+            name: '10',
+            age: 19
+        }, {
+            name: '11',
+            age: 19
+        }, {
+            name: '12',
+            age: 19
+        }, {
+            name: '13',
+            age: 19
+        }, {
+            name: '14',
+            age: 19
+        }, {
+            name: '15',
+            age: 19
+        }, ]
+
+        // 默认初始页数为0，为第一页
+        let count = 0;
+        // 初始化数据渲染到页面上去
+        let content = document.getElementById('content');
+
+        function fn(num) {
+            let data1 = data.slice(num * 10, (num * 10) + 10); // 从第几条开始去截取10条数据
+            let div = '';
+            console.log(data1);
+            data1.forEach(v => {
+                div += `<div>${v.name}</div>`;
+                content.innerHTML = div;
+            });
+        }
+        fn(count);
+
+
+        let pre = document.getElementById('pre');
+        let next = document.getElementById('next');
+        pre.onclick = function() {
+            if (count > 0) {
+                count--;
+                fn(count);
+            }
+        }
+        next.onclick = function() {
+            if (count < Math.floor(data.length / 10)) {
+                count++;
+                fn(count);
+            }
+        }
+    </script>
+</body>
+
+</html>

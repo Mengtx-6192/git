@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #topBar {
+            
+            padding: 0 0 0 500px;
+            /* width: 100%; */
+            /* margin: 0 auto; */
+            height: 100px;
+            line-height: 100px;
+        }
+        #topBar span {
+            position: relative;
+            display: inline-block;
+            height: 25px;
+            width: 80px;
+            line-height: 25px;
+            text-align: center;
+            background: gainsboro;
+            margin-right: 35px;
+        }
+        #topBar span::after {
+            cursor: pointer;
+            content: 'X';
+            position: absolute;
+            top: 0;
+            right: -20px;
+            width: 20px;
+            background: gainsboro;
+        }
+        table {
+            margin: 10px auto;
+            width: 800px;
+            border: 1px solid;
+        }
+
+        th,
+        td {
+            border: 1px solid red;
+            text-align: center;
+        }
+        #page {
+            text-align: center;
+        }
+        #page span {
+            display: inline-block;
+            width: 135px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="topBar"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="checkbox-all"><span>全选</span>
+                </th>
+                <th>名称</th>
+                <th>编号</th>
+                <th>分类</th>
+                <th>描述</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+                <td><input type="checkbox"></td>
+                <td>冰箱</td>
+                <td>bx001</td>
+                <td>家电</td>
+                <td>可以冷藏东西的东西</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>冰柜</td>
+                <td>bx002</td>
+                <td>家电</td>
+                <td>可以冷藏东西的东西</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>空调</td>
+                <td>kt001</td>
+                <td>家电</td>
+                <td>夏天必备</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>电视</td>
+                <td>ds001</td>
+                <td>家电</td>
+                <td>可以看小电影</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>电脑</td>
+                <td>dn001</td>
+                <td>家电</td>
+                <td>网上冲浪</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>卷纸</td>
+                <td>jz001</td>
+                <td>生活用品</td>
+                <td>卷起来的纸</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>小刀</td>
+                <td>xd001</td>
+                <td>生活用品</td>
+                <td>不是电动车的那个小刀</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>洗衣液</td>
+                <td>xyy001</td>
+                <td>日常用品</td>
+                <td>洗衣服用的，听说和香水一样哦</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>麦片</td>
+                <td>mp001</td>
+                <td>食物</td>
+                <td>可以吃的东东</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>82年红茶</td>
+                <td>hc001</td>
+                <td>饮料</td>
+                <td>听说只有帅气的人才能天天喝</td>
+            </tr> -->
+        </tbody>
+    </table>
+    <!-- <div id="page">
+        <p>注：翻页功能现在不要求</p>
+        <span>&lt;&nbsp;上一页</span>
+        <span>下一页&nbsp;&gt;</span>
+    </div> -->
+</body>
+<script>
+
+
+    let data = [
+        { name:'冰箱', id:'bx001', catagory:'家电', desc:'可以冷藏东西的东西' },
+        { name:'冰柜', id:'bx002', catagory:'家电', desc:'可以冷藏东西的东西' },
+        { name:'空调', id:'kt001', catagory:'家电', desc:'夏天必备' },
+        { name:'电视', id:'ds001', catagory:'家电', desc:'可以看小电影' },
+        { name:'电脑', id:'dn001', catagory:'家电', desc:'网上冲浪' },
+        { name:'卷纸', id:'jz001', catagory:'生活用品', desc:'卷起来的纸' },
+        { name:'小刀', id:'xd001', catagory:'生活用品', desc:'不是电动车的那个小刀' },
+        { name:'洗衣液', id:'xyy001', catagory:'日常用品', desc:'洗衣服用的，听说和香水一样哦' },
+        { name:'麦片', id:'mp001', catagory:'食物', desc:'可以吃的东东' },
+        { name:'82年红茶', id:'hc001', catagory:'饮料', desc:'听说只有帅气的人才能天天喝' },
+    ]
+
+    let table = document.getElementsByTagName('table');
+
+    // forEach/map循环，会将每一个对象都遍历出来，可以放开145行在控制台查看就明白了
+    // forEach 和 each用法相同
+    data.forEach( (item) => { // es6箭头函数
+        // (item) => {}  相当于  function(item) {}
+        // console.log(item)
+        let tr = document.createElement('tr');
+        table[0].appendChild(tr);
+
+        /***********************创建一个input放在td中****************************/
+        let td = document.createElement('td');
+        tr.appendChild(td)
+        let input = document.createElement('input');
+        input.type = 'checkbox'
+        td.appendChild(input)
+        /************************-----END------*******************************/
+
+        for (const RESULT in item) {   // const静态变量，最好大写
+            // console.log(RESULT,item[RESULT])
+            let td = document.createElement('td');
+            tr.appendChild(td);
+            td.innerText = item[RESULT]
+        }
+    });
+
+
+    // 设置全选
+    let topBar = document.getElementById('topBar')
+    let checkboxAll = document.getElementById('checkbox-all');
+    let inputs = document.getElementsByTagName('input');
+    // 初始化一个数组，长度和data的长度一样
+    let arr = new Array(data.length);
+
+    /*
+    * ①点击全选按钮，分别调用 全选按钮的方法、
+    * ②动态创建topBar里面的span的方法、
+    * ③全选按钮未选择的时候移除span
+    */
+    checkboxAll.onclick = () => {
+        checkboxAllMethod();
+        createSpan();
+        removeSpan();
+    }
+    // 1.全选， 使下面所有的被勾选
+    function checkboxAllMethod() {
+        for (let i = 1; i < inputs.length; i++) {
+            if (checkboxAll.checked) {
+                inputs[i].checked = true;
+                data.forEach( (v,index) => {
+                    if (i-1 === index) {
+                       arr[i-1] = data[index];
+                    }
+                });
+            } else {
+                inputs[i].checked = false;
+                data.forEach( (v,index) => {
+                    if (i-1 === index) {
+                       arr[i-1] = null;
+                    }
+                });
+            }
+        }
+    }
+    
+
+    // 下面全部勾选的时候，全选也要被勾选
+    for (let i = 1; i < inputs.length; i++) {
+        const input = inputs[i];
+        input['data-index'] = input.id;
+        input.onclick = inputClick;
+    }
+    // tbody中的复选框的点击事件
+    function inputClick() {
+        inputMethod(true);
+        createSpan();
+        removeSpan();
+    }
+
+    // tbody中的复选框被选中的时候的点击方法
+    function inputMethod(bool) {
+        let sum = 0;
+        for (let i = 1; i < inputs.length; i++) {
+            const input = inputs[i];
+            if (input.checked) { // 计数，被勾选的input的数量
+                sum++;
+
+                /*****************3-②****************/
+                if (bool) {
+                    data.forEach( (v,index) => {
+                        if (i-1 === index) {
+                            arr[i-1] = data[index];
+                        }
+                    });
+                }
+
+                /*****************END****************/
+            } else {
+                if (bool) {
+                    data.forEach( (v,index) => {
+                        if (i-1 === index) {
+                        arr[i-1] = null;
+                        }
+                    });
+                }
+            }
+            // 如果勾选的数量 > 大于input-1的时候，全选框就要被勾选      思考：为什么是inputs.length-1
+            if (sum >= inputs.length - 1) {
+                checkboxAll.checked = true;
+            } else {
+                checkboxAll.checked = false;
+            }
+        }   
+    }
+    // 2.创建span添加到topBar下面
+    function createSpan () {
+        let strSpan = '';
+        arr.forEach((v,index) => {
+            if (v) {
+                let span = '<span>'+v.name+'</span>'
+                strSpan += span;
+            }
+        });
+        topBar.innerHTML = strSpan;
+    }
+    // 3.接下来，点击第几个复选框，就要把第几条数据拿出来。 ①.用闭包；②.笨方法，循环的方式
+
+
+    // 4.删除上面的span，对应的勾去掉
+    function removeSpan () {
+        for( let i = 0; i < topBar.children.length; i++) {
+            const span = topBar.children[i]
+            // console.log(span)
+            span.onclick = function(e) {
+                data.forEach( (v,index) => {
+                    if (this.innerText === v.name) {
+                       arr[index] = null;
+                       inputs[index+1].checked = false;  // 一会减一，一会加一，到底啥意思 -_-!!
+                    }
+                });
+                topBar.removeChild(span);
+                // console.log('=======',e);
+                inputMethod(false)
+            }
+        }
+        
+    }
+</script>
+</html>

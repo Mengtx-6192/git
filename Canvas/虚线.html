@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<style type="text/css">
+		canvas{
+		border: 1px solid red;
+		margin: 100px 200px;}
+	</style>
+</head>
+<body>
+	<canvas width="500" height="500"></canvas>
+	</body>
+	<script type="text/javascript">
+	var cas = document.getElementsByTagName('canvas')[0];
+	console.log(cas);
+	var ctx = cas.getContext("2d");
+
+// 第一种
+	// var start = 50;
+	// var step = 10;
+
+	// while (true) {
+	// 	if (start>=500) break;
+
+	// 	ctx.moveTo(start, 100);
+	// 	ctx.lineTo(start+=step, 100);
+
+	// 	start += step;
+
+	// }
+
+
+// 第二种
+ctx.moveTo(100, 100);
+ctx.lineTo(400, 100);
+ctx.setLineDash([10,5,5])   //[实线、虚线、实线、虚线。。。。。]
+	ctx.stroke();
+	</script>
+</html>
