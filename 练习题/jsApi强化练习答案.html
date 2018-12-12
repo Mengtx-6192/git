@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #dv {
+            width: 400px;
+            height: 500px;
+            border: 1px solid red;
+        }
+
+        #dv1 {
+            width: 400px;
+            height: 500px;
+            border: 1px solid blue;
+        }
+
+        div {
+            display: inline-block;
+            margin-left: 100px
+        }
+
+        table {
+            width: 100%
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid;
+            text-align: center
+        }
+
+        p {
+            position: absolute;
+        }
+
+        p:nth-child(1) {
+            top: 10px;
+        }
+
+        p:nth-child(2) {
+            top: 50px;
+        }
+
+        p:nth-child(3) {
+            top: 80px;
+        }
+
+        .color-red {
+            color: red;
+            font-family: '宋体';
+        }
+    </style>
+</head>
+
+<body>
+    <p>暂存按钮的点击需要满足以下两点要求:</p>
+    <p class="color-red">&nbsp;&nbsp;1.input框中的值不能为空;</p>
+    <p class="color-red">&nbsp;&nbsp;2.必须先点击生成表格按钮;</p>
+    <input type="text" placeholder="请输入需要填入td的值">
+    <input type="text" placeholder="请输入需要填入td的值">
+    <button id="btn">生成表格</button>
+    <button id="save">暂存</button>
+    <div id="dv"></div>
+    <div id="dv1">
+        <table>
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>年龄</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>张三</td>
+                    <td>19</td>
+                </tr>
+                <tr>
+                    <td>李四</td>
+                    <td>91</td>
+                </tr>
+                <tr>
+                    <td>王五</td>
+                    <td>191</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button id="getValue">获取table的值</button>
+
+
+    <script src="../jquery-1.12.2.min.js"></script>
+    <script>
+        $(function () {
+
+            // if (localStorage.getItem('tableInfo')) {
+            //     $("#dv1").append(localStorage.getItem('tableInfo'));
+            //     return;
+            // }
+
+            // 点击生成表格按钮
+            var flag = true;
+            $('#btn').click(function (e) {
+                e.preventDefault();
+                console.log($("#dv table"));
+                // 先将input里输入的值获取到
+                var input = $('input').val();
+                if (flag) {
+                    if ($("#dv table").length > 0) {
+                        // 目的是，当我创建过一个table的时候，第二次点击就不会创建
+                        return;
+                    }
+                    // 添加table
+                    $('#dv').append(
+                        '<table><thead><tr><th>1</th><th>2</th></tr></thead><tbody></tbody></table>'
+                    );
+                    flag = false;
+                    $('#btn').html('创建td');
+                } else {
+                    if (!input) {
+                        return
+                    }
+                    // 添加tobody里面的tr td
+                    $('#dv tbody').append('<tr><td>11111</td><td>111</td></tr>');
+                }
+            })
+            // 点击暂存按钮
+            $('#save').click(function (e) {
+                e.preventDefault();
+                // 先将input里输入的值获取到
+                var input = $('input').val();
+                // 判断 ，当存在了table时并且input里有值，就把值给td
+                if ($('#dv table').length > 0 && input) {
+                    $('#dv td').text(input);
+                    console.log($('#dv')[0].children[0])
+                }
+            });
+
+
+            // 右边表格
+            $('#getValue').click(function (e) {
+                e.preventDefault();
+                // 获取到所有的td
+                var data = []; // 创建一个数组，用于存放数据
+                var obj = {}; // 创建对象
+                var conut = 0;
+                var tds = $('#dv1').children('table').find('td');
+                for (var i = 0, len = tds.length; i < len; i++) {
+                    if (i % 2 == 0) {
+                        // 判断是否为name的那些td
+                        obj['name'] = tds[i].innerText;
+                    } else {
+                        // 否则就是值为age的td
+                        obj['age'] = tds[i].innerText;
+                    }
+                    conut++;
+                    if (conut == 2) {
+                        conut = 0;
+                        //data.push(obj) // 这样写data的值全是最后一个王五，这是因为obj是对象，时刻影响着data
+                        var obj1 = JSON.stringify(obj)
+                        data.push(JSON.parse(obj1))
+                    }
+                }
+                console.log(data)
+                console.log('=========================================================')
+                console.log('会遇到几个问题：')
+                console.log('第一：如何将第一个td的值放进name中，第二个td的值放在age中')
+                console.log('第二：如何将{name:xxx, age: xxx},放在data中')
+                console.log('注意：复杂数据类型会影响赋值，可以参考js基础阶段复习题中使用JSON的方式完成深拷贝')
+            });
+        })
+    </script>
+</body>
+
+</html>

@@ -1,9 +1,0 @@
-数组的push（）pop（）unshift（）shift（）方法作用和区别
-数组的去重方法（new Set）除了这个还有什么方法
-数组的排序方法 （sort（））除了这个还有什么方法
-Css选择器都有什么   
-h5的新的标签属性特性都有什么
-C3 的新增的特性
-左边盒子固定右边盒子自适应怎么实现
-Cookie和 localstorage 以及sessionStorage 的区别
-多个页面之间的通讯  使用那些可以实现
